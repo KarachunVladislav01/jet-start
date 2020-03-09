@@ -9,26 +9,26 @@ export default class Data extends JetView {
 		const dataMenu = {
 			view: "segmented",
 			localId: "dataMenu",
-			value: "Countries",
+			value: "countries",
 			options: [
 				{
 					value: "Countries",
-					localId: "countries"
+					id: "countries"
 				},
 				{
 					value: "Statuses",
-					localId: "statuses"
+					id: "statuses"
 				}
 			]
 		};
 		const multiView = {
 			cells: [
 				{
-					id: "countries",
+					localId: "countries",
 					rows: [new DataTable(this.app, "", countries)]
 				},
 				{
-					id: "statuses",
+					localId: "statuses",
 					rows: [new DataTable(this.app, "", statuses)]
 				}
 			]
