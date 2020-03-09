@@ -11,9 +11,10 @@ export default class Contact extends JetView {
 			template:
 				"<div class= 'users-list--flex'>{common.userInfo()}{common.deleteIcon}</div>",
 			type: {
-				userInfo: function(obj) {
+				userInfo: obj => {
 					return `<span>${obj.Name}, ${obj.Email}</span>`;
 				},
+
 				deleteIcon: "<span class='remove-btn webix_icon wxi-close'></span>"
 			}
 		};

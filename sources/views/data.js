@@ -13,11 +13,11 @@ export default class Data extends JetView {
 			options: [
 				{
 					value: "Countries",
-					id: "countries"
+					localId: "countries"
 				},
 				{
 					value: "Statuses",
-					id: "statuses"
+					localId: "statuses"
 				}
 			]
 		};
