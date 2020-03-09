@@ -4,14 +4,14 @@ export default class Settings extends JetView {
 	config() {
 		const changeLanguageButtons = {
 			view: "segmented",
-			value: "EN",
+			value: "en",
 			options: [
 				{
-					localId: "en",
+					id: "en",
 					value: "EN"
 				},
 				{
-					localId: "ru",
+					id: "ru",
 					value: "RU"
 				}
 			]

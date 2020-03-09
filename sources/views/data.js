@@ -9,7 +9,7 @@ export default class Data extends JetView {
 		const dataMenu = {
 			view: "segmented",
 			localId: "dataMenu",
-			value: "countries",
+			value: "Countries",
 			options: [
 				{
 					value: "Countries",
