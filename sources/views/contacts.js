@@ -37,9 +37,15 @@ export default class Contact extends JetView {
 			]
 		};
 
+		const addButton = {
+			view: "button",
+			value: "Add",
+			click: () => this.addContact()
+		};
+
 		const view = {
 			margin: 20,
-			cols: [usersList, userForm]
+			cols: [{ rows: [usersList, addButton] }, userForm]
 		};
 		return view;
 	}
