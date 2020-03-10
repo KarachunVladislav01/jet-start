@@ -39,14 +39,6 @@ export default class Contact extends JetView {
 		this.list = this.$$("userList");
 		this.list.sync(contacts);
 		this.list.attachEvent("onAfterSelect", chosenId => {
-			const previousId = this.getParam("id");
-			const item = contacts.getItem(previousId);
-
-			if (item) {
-				if (!this.formValidation(item)) {
-					this.deleteContact(previousId);
-				}
-			}
 			this.show(`./contacts?id=${chosenId}`);
 		});
 		let id = url[0].params.id;
@@ -66,15 +58,5 @@ export default class Contact extends JetView {
 		contacts.remove(id);
 		this.list.unselectAll();
 		this.show("./contacts");
-	}
-
-	formValidation(obj) {
-		let flag = false;
-		Object.keys(obj).forEach(key => {
-			if (obj[key] !== "") {
-				flag = true;
-			}
-		});
-		return flag;
 	}
 }
