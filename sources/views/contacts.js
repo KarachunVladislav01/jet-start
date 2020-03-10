@@ -37,29 +37,36 @@ export default class Contact extends JetView {
 	}
 	init(view, url) {
 		this.list = this.$$("userList");
-		this.list.sync(contacts);
-		this.list.attachEvent("onAfterSelect", chosenId => {
-			const previousId = this.getParam("id");
-			const item = contacts.getItem(previousId);
+		contacts.waitData.then(() => {
+			this.list.sync(contacts);
+			this.list.attachEvent("onAfterSelect", chosenId => {
+				const previousId = this.getParam("id");
+				const item = contacts.getItem(previousId);
 
-			if (item) {
-				if (!this.formValidation(item)) {
-					this.deleteContact(previousId);
+				if (item) {
+					if (!this.formValidation(item)) {
+						this.deleteContact(previousId);
+					}
 				}
+				this.show(`./contacts?id=${chosenId}`);
+			});
+			let id = url[0].params.id;
+			if (!contacts.exists(id)) {
+				id = contacts.getFirstId();
 			}
-			this.show(`./contacts?id=${chosenId}`);
+			this.list.select(id);
 		});
-		let id = url[0].params.id;
-		if (!contacts.exists(id)) {
-			id = contacts.getFirstId();
-		}
-		this.list.select(id);
 	}
 
 	addContact() {
-		const id = contacts.add({ Name: "", Email: "" }, 0);
-		webix.message({ type: "info", text: "Please enter user details" });
-		this.list.select(id);
+		contacts
+			.waitSave(() => {
+				contacts.add({ Name: "", Email: "" }, 0);
+			})
+			.then(res => {
+				this.list.select(res.id);
+				webix.message({ type: "info", text: "Please enter user details" });
+			});
 	}
 
 	deleteContact(id) {
