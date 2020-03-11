@@ -36,22 +36,30 @@ export default class DataTable extends JetView {
 
 	init() {
 		this.table = this.$$("dataTable");
-		this.table.parse(this._gridData);
+		this._gridData.waitData.then(() => {
+			this.table.sync(this._gridData);
+		});
 	}
 
 	addItem() {
-		this.table.add({ Name: "name" }, 0);
+		this._gridData
+			.waitSave(() => {
+				this._gridData.add({ Name: "name" }, 0);
+			})
+			.then(res => {
+				this.table.select(res.id);
+			});
 	}
 
 	deleteItem() {
-		const item = this.dataTable.getSelectedId();
-		if (item) {
+		const itemId = this.table.getSelectedId();
+		if (itemId) {
 			this.webix
 				.confirm({
 					text: "Are you sure"
 				})
 				.then(() => {
-					this.table.remove(item);
+					this._gridData.remove(itemId);
 				});
 		}
 	}

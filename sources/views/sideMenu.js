@@ -41,5 +41,11 @@ export default class SideMenu extends JetView {
 	}
 	init() {
 		this.use(plugins.Menu, "sideMenu:menu");
+		this.use(plugins.Locale, {
+			webix: {
+				en: "en-US",
+				ru: "RU"
+			}
+		});
 	}
 }
