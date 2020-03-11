@@ -6,17 +6,18 @@ import DataTable from "./dataTable.js";
 
 export default class Data extends JetView {
 	config() {
+		const _ = this.app.getService("locale")._;
 		const dataMenu = {
 			view: "segmented",
 			localId: "dataMenu",
 			value: "countries",
 			options: [
 				{
-					value: "Countries",
+					value: _("Countries"),
 					id: "countries"
 				},
 				{
-					value: "Statuses",
+					value: _("Statuses"),
 					id: "statuses"
 				}
 			]

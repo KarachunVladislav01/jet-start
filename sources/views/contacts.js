@@ -4,6 +4,7 @@ import userForm from "./contactForm.js";
 
 export default class Contact extends JetView {
 	config() {
+		const _ = this.app.getService("locale")._;
 		const usersList = {
 			view: "list",
 			localId: "userList",
@@ -25,7 +26,7 @@ export default class Contact extends JetView {
 
 		const addButton = {
 			view: "button",
-			value: "Add",
+			value: _("Add"),
 			click: () => this.addContact()
 		};
 
@@ -38,20 +39,28 @@ export default class Contact extends JetView {
 	init(view, url) {
 		this.list = this.$$("userList");
 		this.list.sync(contacts);
-		this.list.attachEvent("onAfterSelect", chosenId => {
-			this.show(`./contacts?id=${chosenId}`);
+
+		contacts.waitData.then(() => {
+			this.list.attachEvent("onAfterSelect", chosenId =>
+				this.show(`./contacts?id=${chosenId}`)
+			);
+			let id = url[0].params.id;
+			if (!contacts.exists(id)) {
+				id = contacts.getFirstId();
+			}
+			this.list.select(id);
 		});
-		let id = url[0].params.id;
-		if (!contacts.exists(id)) {
-			id = contacts.getFirstId();
-		}
-		this.list.select(id);
 	}
 
 	addContact() {
-		const id = contacts.add({ Name: "", Email: "" }, 0);
-		webix.message({ type: "info", text: "Please enter user details" });
-		this.list.select(id);
+		contacts
+			.waitSave(() => {
+				contacts.add({ Name: "", Email: "" }, 0);
+			})
+			.then(res => {
+				this.list.select(res.id);
+				webix.message({ type: "info", text: "Please enter user details" });
+			});
 	}
 
 	deleteContact(id) {
