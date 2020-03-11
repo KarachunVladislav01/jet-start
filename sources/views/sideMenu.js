@@ -2,13 +2,14 @@ import { JetView, plugins } from "webix-jet";
 
 export default class SideMenu extends JetView {
 	config() {
-		var header = {
+		const _ = this.app.getService("locale")._;
+		const header = {
 			type: "header",
 			template: this.app.config.name,
 			css: "webix_header app_header"
 		};
 
-		var sideMenu = {
+		const sideMenu = {
 			view: "menu",
 			id: "sideMenu:menu",
 			css: "app_menu",
@@ -17,13 +18,13 @@ export default class SideMenu extends JetView {
 			select: true,
 			template: "<span class='webix_icon #icon#'></span> #value# ",
 			data: [
-				{ value: "Contacts", id: "contacts", icon: "wxi-user" },
-				{ value: "Data", id: "data", icon: "wxi-folder" },
-				{ value: "Settings", id: "settings", icon: "wxi-dots" }
+				{ value: _("Contacts"), id: "contacts", icon: "wxi-user" },
+				{ value: _("Data"), id: "data", icon: "wxi-folder" },
+				{ value: _("Settings"), id: "settings", icon: "wxi-dots" }
 			]
 		};
 
-		var view = {
+		const view = {
 			type: "clean",
 			paddingX: 5,
 			css: "app_layout",
@@ -41,11 +42,5 @@ export default class SideMenu extends JetView {
 	}
 	init() {
 		this.use(plugins.Menu, "sideMenu:menu");
-		this.use(plugins.Locale, {
-			webix: {
-				en: "en-US",
-				ru: "RU"
-			}
-		});
 	}
 }

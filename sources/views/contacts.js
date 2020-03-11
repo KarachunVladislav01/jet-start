@@ -4,6 +4,7 @@ import userForm from "./contactForm.js";
 
 export default class Contact extends JetView {
 	config() {
+		const _ = this.app.getService("locale")._;
 		const usersList = {
 			view: "list",
 			localId: "userList",
@@ -25,7 +26,7 @@ export default class Contact extends JetView {
 
 		const addButton = {
 			view: "button",
-			value: "Add",
+			value: _("Add"),
 			click: () => this.addContact()
 		};
 

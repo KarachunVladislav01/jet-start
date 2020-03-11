@@ -7,6 +7,7 @@ export default class DataTable extends JetView {
 	}
 
 	config() {
+		const _ = this.app.getService("locale")._;
 		const dataTable = {
 			view: "datatable",
 			localId: "dataTable",
@@ -19,12 +20,12 @@ export default class DataTable extends JetView {
 			cols: [
 				{
 					view: "button",
-					value: "Add",
+					value: _("Add"),
 					click: () => this.addItem()
 				},
 				{
 					view: "button",
-					value: "Delete",
+					value: _("Delete"),
 					click: () => this.deleteItem()
 				}
 			]
