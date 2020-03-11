@@ -5,25 +5,26 @@ import { statuses } from "models/statuses";
 
 export default class ContactEditForm extends JetView {
 	config() {
+		const _ = this.app.getService("locale")._;
 		const userForm = {
 			view: "form",
 			localId: "userForm",
 			elements: [
 				{
 					view: "text",
-					label: "Name:",
+					label: _("Name"),
 					name: "Name",
 					invalidMessage: "Must be filled"
 				},
 				{
 					view: "text",
-					label: "E-mail:",
+					label: _("E-mail"),
 					name: "Email",
 					invalidMessage: "This is not E-mail"
 				},
 				{
 					view: "combo",
-					label: "Country",
+					label: _("Country"),
 					name: "Country",
 					value: 1,
 					invalidMessage: "Must be selected",
@@ -36,7 +37,7 @@ export default class ContactEditForm extends JetView {
 				},
 				{
 					view: "combo",
-					label: "Status",
+					label: _("Status"),
 					name: "Status",
 					value: 1,
 					invalidMessage: "Must be selected",
@@ -57,7 +58,7 @@ export default class ContactEditForm extends JetView {
 		};
 		const formButton = {
 			view: "button",
-			label: "Save",
+			label: _("Save"),
 			click: () => this.saveContact()
 		};
 
